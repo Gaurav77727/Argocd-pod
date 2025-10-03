@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-green
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: nginx-green
+      image: gauravkumarchauhan/mynginx:green
+      ports:
+        - containerPort: 80
+      command: ["nginx"]
+      args: ["-g", "daemon off;"]
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "250m"
+        limits:
+          memory: "256Mi"
+          cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-red
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: nginx-red
+      image: gauravkumarchauhan/mynginx:red
+      ports:
+        - containerPort: 80
+      command: ["nginx"]
+      args: ["-g", "daemon off;"]
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "250m"
+        limits:
+          memory: "256Mi"
+          cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: nginx
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "250m"
+        limits:
+          memory: "256Mi"
+          cpu: "500m"
